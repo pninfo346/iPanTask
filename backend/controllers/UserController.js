@@ -16,33 +16,37 @@ class UserController{
 
         if (name && userName && phone && email && password && conPassword && city && state && country && role && departmentId && location) {
             if (password === conPassword) {
-                try{
-                    const hashPassword = await bcrypt.hash(password,10)
-                    const data = new UserModel({
-                        name: name,
-                        userName: userName,
-                        phone: phone,
-                        email: email,
-                        gender: gender,
-                        hobbies: hobbiesString,
-                        password: hashPassword,
-                        city: city,
-                        state: state,
-                        country: country,
-                        role: role,
-                        departmentId: departmentId,
-                        departmentName: departmentData.departmentName,
-                        location: location,
-                    })
-                    const dataSaved = await data.save()
-
-                    if (dataSaved) {
-                        res.status(201).json({ status: "success", message: "EMPLOYEE REGISTRATION SUCCESSFUL 😃🍻"});
-                    } else {
-                        res.status(401).json({ status: "failed", message: 'Data not Save' });
+                if (password.length < 8 || password.length > 20) {
+                    res.status(401).json({ status: "failed", message: 'PASSWORD LENGTH MUST BE BETWEEN 8 TO 20 CHARACTER 😓' });
+                } else {
+                    try{
+                        const hashPassword = await bcrypt.hash(password,10)
+                        const data = new UserModel({
+                            name: name,
+                            userName: userName,
+                            phone: phone,
+                            email: email,
+                            gender: gender,
+                            hobbies: hobbiesString,
+                            password: hashPassword,
+                            city: city,
+                            state: state,
+                            country: country,
+                            role: role,
+                            departmentId: departmentId,
+                            departmentName: departmentData.departmentName,
+                            location: location,
+                        })
+                        const dataSaved = await data.save()
+    
+                        if (dataSaved) {
+                            res.status(201).json({ status: "success", message: "EMPLOYEE REGISTRATION SUCCESSFUL 😃🍻"});
+                        } else {
+                            res.status(401).json({ status: "failed", message: 'DATA NOT SAVE 😓' });
+                        }
+                    }catch(err){
+                        res.status(401).json({ status: "failed", message: err });
                     }
-                }catch(err){
-                    res.status(401).json({ status: "failed", message: err });
                 }
             } else {
                 res.status(404).json({ status: "failed", message: "'PASSWORD AND CONFIRM PASSWORD DOES NOT MATCH 😓" });
