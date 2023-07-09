@@ -1,0 +1,161 @@
+.guestFormsParent{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.guestFormsChild{
+    border: 1px solid #000;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    border-top: 5px solid blueviolet;
+}
+
+.text-theme{
+    color: blueviolet;
+}
+
+.activeMenu{
+    /* color: blueviolet !important; */
+    background: blueviolet !important;
+    color: #fff !important;
+}
+
+.p-20px{
+    padding: 20px;
+}
+
+.bg-theme{
+    background: #eeecef;
+    border-radius: 6px;
+}
+
+.btn-custom{
+    background-color: blueviolet;
+    border: 1px solid blueviolet;
+    color: #fff;
+    font-weight: bold;
+}
+
+.btn-custom:hover{
+    color: blueviolet;
+    border: 1px solid blueviolet;
+    background-color: #fff;
+    font-weight: bold;
+}
+
+.alert-theme{
+    background-color: #8a2be229 !important;
+}
+
+/* admin panel sidebar starts */
+.sidebar {
+    margin-top: 60px;
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 10px;
+}
+  
+.sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #000;
+    display: block;
+    transition: 0.3s;
+}
+  
+.sidebar span {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #000;
+    display: block;
+    transition: 0.3s;
+}
+
+input:focus {
+    border: 1px solid blueviolet !important;
+    box-shadow: none !important;
+}
+
+select:focus {
+    border: 1px solid blueviolet !important;
+    box-shadow: none !important;
+}
+
+.sidebar a:hover {
+    color: blueviolet;
+}
+  
+.sidebar span:hover {
+    color: blueviolet;
+}
+  
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.mt-60px{
+    margin-top: 60px;
+}
+
+.ms-263px{
+    margin-left: 263px;
+    transition: 0.5s;
+}
+
+.ms-0px{
+    margin-left: 0px;
+    transition: 0.5s;
+}
+  
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: blueviolet;
+    color: #fff;
+    padding: 4px 11px;
+    border-radius: 4px;
+    border: 1px solid blueviolet;
+}
+  
+.openbtn:hover {
+    background-color: #fff;
+    border: 1px solid blueviolet;
+    color: blueviolet;
+}
+  
+#main {
+    transition: margin-left .5s;
+    /* padding: 16px; */
+    margin-left: 250px;
+}
+  
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar a {font-size: 18px;}
+}
+/* admin panel sidebar ends */
+
+/* admin panel header starts */
+.header{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 10px;
+}
+/* admin panel header ends */
