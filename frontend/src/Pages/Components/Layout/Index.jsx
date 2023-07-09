@@ -68,7 +68,7 @@ const LayoutIndex = () => {
                     showManagerView ?
                     <>
                         <Link to="/admin/dashboard" className={`${location.pathname == '/admin/dashboard' ? 'activeMenu' : ''}`}><i className="fa-solid fa-gauge-high"></i> Dashboard</Link>
-                        <Link to="/admin/employees" className={`${location.pathname == '/admin/employees' || location.pathname == `/admin/edit-employee/${id}` || location.pathname == `/admin/employees-from-it-department-and-location-from-A` || location.pathname == `/admin/employees-from-sales-department-in-reverse-order` ? 'activeMenu' : ''}`}><i className="fa-solid fa-users"></i> Employees</Link>
+                        <Link to="/admin/employees" className={`${location.pathname == '/admin/employees' || location.pathname == `/admin/edit-employee/${id}` || location.pathname == `/admin/employees-from-it-department-and-location-from-A` || location.pathname == `/admin/assign-employee` || location.pathname == `/admin/employees-from-sales-department-in-reverse-order` ? 'activeMenu' : ''}`}><i className="fa-solid fa-users"></i> Employees</Link>
                         <Link to="/admin/departments" className={`${location.pathname == '/admin/departments' || location.pathname == `/admin/edit-department/${id}` ? 'activeMenu' : ''}`}><i className="fa-solid fa-sitemap"></i> Departments</Link>
                     </>
                     :

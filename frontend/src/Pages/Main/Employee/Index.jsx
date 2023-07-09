@@ -107,7 +107,7 @@ const EmployeeIndex = () => {
                 </div>
                 <div className='d-flex gap-2'>
                     <Link to='/admin/add-employee' className='btn btn-sm btn-custom'><i className="fa-solid fa-plus"></i> Add New</Link>
-                    <Link to='/admin/assign-employee' className='btn btn-sm btn-custom'>Assign</Link>
+                    <Link to='/admin/assign-employee' className='btn btn-sm btn-custom'><i className="fa-solid fa-list-check"></i> Assign</Link>
                 </div>
             </div>
             
