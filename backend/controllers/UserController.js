@@ -79,7 +79,8 @@ class UserController{
     static updateEmployee = async(req,res) => {
         // console.log(req.body)
 
-        const {name, userName, phone, gender, email, city, state, country, role, departmentId, location} = req.body
+        const {name, userName, phone, gender, hobbies, email, city, state, country, role, departmentId, location} = req.body
+        const hobbiesString = hobbies.join(", ")
         const departmentData = await DepartmentModel.findOne({ _id: departmentId })
         if (name && userName && phone && email && city && state && country && role) {
             try{
@@ -89,6 +90,7 @@ class UserController{
                     phone: phone,
                     email: email,
                     gender: gender,
+                    hobbies: hobbiesString,
                     city: city,
                     state: state,
                     country: country,
@@ -104,7 +106,24 @@ class UserController{
                 res.status(401).json({ status: "failed", message: err });
             }
         } else {
-            res.status(404).json({ status: "failed", message: "ALL FIELDS ARE REQUIRED 😓" });
+            res.status(401).json({ status: "failed", message: "ALL FIELDS ARE REQUIRED 😓" });
+        }
+    }
+
+    static assignEmployees = async(req,res) => {
+        try{
+            const {departmentId, employeeId} = req.body
+            // console.log(employeeId);
+
+            const departmentData = await DepartmentModel.findOne({ _id: departmentId })
+            await UserModel.updateMany(
+                { _id: { $in: employeeId } },
+                { $set: { departmentId: departmentId, departmentName: departmentData.departmentName } }
+            );
+        
+            res.status(201).json({ status: "success", message: "USER ASSIGNED SUCCESSFULLY 😃🍻"});
+        }catch(err){
+            res.status(401).json({ status: "failed", message: err });
         }
     }
 

@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import BasicBreadcrumb from '../../Components/Breadcrumbs/BasicBreadcrumb'
 import EmployeeTable from './Table'
+import SingleLinkBreadcrumb from '../../Components/Breadcrumbs/SingleLinkBreadcrumb'
 
-const EmployeeIndex = () => {
+const AssignEmployee = () => {
 
     var fields = {
         employeeId: '',
@@ -101,13 +102,11 @@ const EmployeeIndex = () => {
         <>
             <div className='d-flex justify-content-between align-items-center'>
                 <div>
-                    <BasicBreadcrumb 
-                        pageName='Employee'
+                    <SingleLinkBreadcrumb 
+                        pageName='Assign Employee'
+                        parent='Employee'
+                        url='/admin/employees'
                     />
-                </div>
-                <div className='d-flex gap-2'>
-                    <Link to='/admin/add-employee' className='btn btn-sm btn-custom'><i className="fa-solid fa-plus"></i> Add New</Link>
-                    <Link to='/admin/assign-employee' className='btn btn-sm btn-custom'>Assign</Link>
                 </div>
             </div>
             
@@ -115,12 +114,44 @@ const EmployeeIndex = () => {
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-md-12">
-                            <EmployeeTable />
-                            <br />
-                            <br />
-                            <h5>More Options:</h5>
-                            <Link to='/admin/employees-from-it-department-and-location-from-A' className='text-theme fw-bold text-decoration-none'>1. Click here to see Employees from IT Department & from Location starts with A.</Link><br />
-                            <Link to='/admin/employees-from-sales-department-in-reverse-order' className='text-theme fw-bold text-decoration-none'>2. Click here to see Employees from Sales Department in Reverse Order.</Link>
+                            <div className='bg-white rounded p-3'>
+                                <form onSubmit={handleSubmit}>
+                                    {
+                                        showResponse ?
+                                        <>
+                                            <div className="alert alert-theme" role="alert">
+                                                {messageText}
+                                            </div>
+                                        </>
+                                        :
+                                        ''
+                                    }
+                                    <small>Fields with <span className='text-danger fw-bold'>*</span> are mandatory !</small>
+                                    <br /><br />
+                                    <div className='mb-3'>
+                                        <label htmlFor="departmentId">Department <span className='text-danger fw-bold'>*</span></label>
+                                        <select name="departmentId" id="departmentId" className='form-select' onChange={handleInput}>
+                                            <option value="">---- Select Department ----</option>
+                                            {
+                                                departments && departments.map((val,key)=>(
+                                                    <option key={key} value={val?._id}>{val?.departmentName} </option>
+                                                )) 
+                                            }
+                                        </select>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="employeeId">Employees <span className='text-danger fw-bold'>*</span></label>
+                                        {
+                                            employeesFromBackend && employeesFromBackend.map((val,key)=>(
+                                                <div key={key}>
+                                                    <input type="checkbox" name='employeeId' value={val?._id} onChange={handleEmployeeChange} /> {val?.name}&nbsp;&nbsp;&nbsp;
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                    <button type="submit" className="btn btn-sm btn-custom">Assign</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -129,4 +160,4 @@ const EmployeeIndex = () => {
     )
 }
 
-export default EmployeeIndex
+export default AssignEmployee

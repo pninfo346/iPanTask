@@ -15,6 +15,7 @@ const EmployeeEdit = () => {
         phone: '',
         email: '',
         gender: '',
+        hobbies: '',
         password: '',
         conPassword: '',
         city: '',
@@ -26,7 +27,10 @@ const EmployeeEdit = () => {
     }
 
     const [data, setData] =  useState(fields)
+    const [hobbies, setHobbies] = useState([]);
     const [departments, setDepartments] =  useState([])
+    const [hobbiesInString, setHobbiesInString] =  useState()
+    const [isHobbySet, setIsHobbySet] =  useState(false)
     const [showResponse, setShowResponse] = useState(false)
     const [messageText, setMessageText] = useState()
 
@@ -37,12 +41,44 @@ const EmployeeEdit = () => {
         })
     }
 
+    function handleHobbyChange(event) {
+        const { value, checked } = event.target;
+      
+        setHobbies(prevHobbies => {
+            if (checked) {
+                // Add the hobby to the state if it's checked
+                return [...prevHobbies, value];
+            } else {
+                // Remove the hobby from the state if it's unchecked
+                return prevHobbies.filter(hobby => hobby !== value);
+            }
+        });
+    }
+
     const handleSubmit = async(e) => {
         e.preventDefault()
 
+        const formData = {
+            name: data.name,
+            userName: data.userName,
+            phone: data.phone,
+            gender: data.gender,
+            email: data.email,
+            password: data.password,
+            conPassword: data.conPassword,
+            city: data.city,
+            state: data.state,
+            country: data.country,
+            role: 'employee',
+            departmentId: data.departmentId,
+            departmentName: data.departmentName,
+            location: data.location,
+            hobbies: hobbies,
+        };
+
         await fetch(`http://localhost:5000/api/i-pangram/updateEmployee/${id}`,{
             method: 'POST',
-            body: JSON.stringify(data),
+            body: JSON.stringify(formData),
             headers: {
                 "Content-Type": "application/json"
             }
@@ -72,6 +108,8 @@ const EmployeeEdit = () => {
                 departmentId: data.data.departmentId,
                 location: data.data.location,
             })
+            setHobbiesInString(data.data.hobbies)
+            setIsHobbySet(true)
         })
         .catch((err)=>{
             // console.log(err);
@@ -93,6 +131,12 @@ const EmployeeEdit = () => {
         getEmployee()
         getAllDepartments()
     },[])
+
+    useEffect(()=>{
+        const hobbyArray = hobbiesInString?.split(", ")
+        // console.log('Hobby Array---->>',hobbyArray);
+        setHobbies(hobbyArray)
+    },[isHobbySet])
 
     return (
         <>
@@ -169,10 +213,27 @@ const EmployeeEdit = () => {
                                             required={true}
                                         />
                                     </div>
-                                    <div className="col-md-12">
+                                    <div className="col-md-6">
                                         <label htmlFor="gender">Gender <span className='text-danger fw-bold'>*</span></label><br />
                                         <input type="radio" className='form-check-input' name='gender' value='Male' onChange={handleInput} checked={data.gender == "Male" ? 'checked': ''} /> Male&nbsp;&nbsp;&nbsp;
                                         <input type="radio" className='form-check-input' name='gender' value='Female' onChange={handleInput} checked={data.gender == "Female" ? 'checked': ''} /> Female
+                                    </div>
+                                    <div className="col-md-6">
+                                        <label htmlFor="hobbies">Hobbies <span className='text-danger fw-bold'>*</span></label><br />
+                                        <div className='d-flex flex-wrap'>
+                                            <div>
+                                                <input type="checkbox" name='hobbies' value='Cricket' onChange={handleHobbyChange} checked={hobbies?.includes('Cricket') ? 'checked' : ''} /> Cricket&nbsp;&nbsp;&nbsp;
+                                            </div>
+                                            <div>
+                                                <input type="checkbox" name='hobbies' value='Chess' onChange={handleHobbyChange} checked={hobbies?.includes('Chess') ? 'checked' : ''} /> Chess&nbsp;&nbsp;&nbsp;
+                                            </div>
+                                            <div>
+                                                <input type="checkbox" name='hobbies' value='Travelling' onChange={handleHobbyChange} checked={hobbies?.includes('Travelling') ? 'checked' : ''} /> Travelling&nbsp;&nbsp;&nbsp;
+                                            </div>
+                                            <div>
+                                                <input type="checkbox" name='hobbies' value='Shopping' onChange={handleHobbyChange} checked={hobbies?.includes('Shopping') ? 'checked' : ''} /> Shopping&nbsp;&nbsp;&nbsp;
+                                            </div>
+                                        </div>
                                     </div>
                                     <div className="col-md-6">
                                         <label htmlFor="departmentId">Department <span className='text-danger fw-bold'>*</span></label>

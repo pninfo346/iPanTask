@@ -15,6 +15,7 @@ import EmployeeEdit from "./Pages/Main/Employee/Edit"
 import QueryOne from "./Pages/Main/Employee/QueryOne"
 import QueryTwo from "./Pages/Main/Employee/QueryTwo"
 import EmployeeDashboardIndex from "./Pages/Main/Dashboard/EmployeeDashboard"
+import AssignEmployee from "./Pages/Main/Employee/AssignEmployee"
 
 
 const App = () => {
@@ -37,6 +38,7 @@ const App = () => {
           <Route path="/admin/employee-dashboard" element={<EmployeeDashboardIndex />} />
           <Route path="/admin/employees" element={<EmployeeIndex />} />
           <Route path="/admin/add-employee" element={<EmployeeAdd />} />
+          <Route path="/admin/assign-employee" element={<AssignEmployee />} />
           <Route path="/admin/edit-employee/:id" element={<EmployeeEdit />} />
           <Route path="/admin/employees-from-it-department-and-location-from-A" element={<QueryOne />} />
           <Route path="/admin/employees-from-sales-department-in-reverse-order" element={<QueryTwo />} />
